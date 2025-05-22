@@ -41,7 +41,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const welcomeMessage: Message = {
         id: uuidv4(),
         sender: 'assistant',
-        content: "Hi there! I'm your AI assistant. You can ask me questions or try these commands:\n\n- `/weather [city]` - Get weather information\n- `/calc [expression]` - Calculate a math expression\n- `/define [word]` - Look up a word's definition",
+        content: "Hi there! I'm your AI assistant. You can ask me questions or try these commands:\n\n- `/weather [city]` - Get weather information\n- `/calc [expression]` - Calculate a math expression\n- `/define [word]` - Look up a word's definition\n- `/gemini [prompt]` - Get AI-powered responses using Google Gemini\n- `/gemini-key [api-key]` - Set your Gemini API key (optional)",
         type: 'text',
         timestamp: new Date().toISOString()
       };

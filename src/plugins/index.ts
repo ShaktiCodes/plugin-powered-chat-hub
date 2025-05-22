@@ -1,13 +1,16 @@
-
 import WeatherPlugin from './WeatherPlugin';
 import CalculatorPlugin from './CalculatorPlugin';
 import DictionaryPlugin from './DictionaryPlugin';
+import GeminiPlugin from './GeminiPlugin';
+import GeminiKeyPlugin from './GeminiKeyPlugin';
 import { Plugin } from '../types';
 
 const plugins: Plugin[] = [
   WeatherPlugin,
   CalculatorPlugin,
-  DictionaryPlugin
+  DictionaryPlugin,
+  GeminiPlugin,
+  GeminiKeyPlugin
 ];
 
 export default plugins;
