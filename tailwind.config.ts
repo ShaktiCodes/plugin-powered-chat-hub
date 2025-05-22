@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,10 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				chat: {
+					user: '#6d28d9',
+					assistant: '#2563eb',
 				}
 			},
 			borderRadius: {
@@ -84,11 +89,36 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					from: {
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					to: {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'typing': {
+					'0%': {
+						opacity: '0.2'
+					},
+					'20%': {
+						opacity: '1'
+					},
+					'100%': {
+						opacity: '0.2'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-in-out',
+				'typing-dot-1': 'typing 1s infinite 0s',
+				'typing-dot-2': 'typing 1s infinite 0.2s',
+				'typing-dot-3': 'typing 1s infinite 0.4s'
 			}
 		}
 	},
