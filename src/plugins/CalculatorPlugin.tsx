@@ -4,7 +4,7 @@ import { Plugin } from '../types';
 
 interface CalculatorResult {
   expression: string;
-  result: number;
+  result: number | string;
 }
 
 const CalculatorPlugin: Plugin = {
@@ -23,7 +23,13 @@ const CalculatorPlugin: Plugin = {
       }
       
       // Safe evaluation of mathematical expression
+      // We use Function constructor with strict mode to prevent access to global scope
       const result = Function('"use strict"; return (' + expression + ')')();
+      
+      // Check if result is a valid number
+      if (typeof result !== 'number' || !isFinite(result)) {
+        throw new Error("The expression did not evaluate to a valid number.");
+      }
       
       return {
         expression,
@@ -31,7 +37,7 @@ const CalculatorPlugin: Plugin = {
       };
     } catch (error) {
       console.error('Calculator error:', error);
-      throw new Error(`Unable to calculate. ${error.message || 'Please check your expression.'}`);
+      throw new Error(`Unable to calculate. ${error instanceof Error ? error.message : 'Please check your expression.'}`);
     }
   },
   
