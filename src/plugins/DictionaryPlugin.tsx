@@ -24,87 +24,37 @@ const DictionaryPlugin: Plugin = {
     try {
       const word = params.trim();
       
-      // In a real app, you would call a dictionary API here
-      // This is a mock implementation for demo purposes
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Fake delay
+      // Call the Dictionary API
+      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
       
-      // Mock dictionary data based on the word
-      const mockDefinitions: Record<string, DictionaryResult> = {
-        'apple': {
-          word: 'apple',
-          phonetic: '/ˈæp.əl/',
-          meanings: [
-            {
-              partOfSpeech: 'noun',
-              definitions: [
-                {
-                  definition: 'A round fruit with red, green, or yellow skin and firm white flesh.',
-                  example: 'She ate an apple for breakfast.'
-                },
-                {
-                  definition: 'The tree that produces apples, with pink or white flowers.'
-                }
-              ]
-            }
-          ]
-        },
-        'code': {
-          word: 'code',
-          phonetic: '/kəʊd/',
-          meanings: [
-            {
-              partOfSpeech: 'noun',
-              definitions: [
-                {
-                  definition: 'A system of words, letters, or signs used to represent a message in secret form.',
-                  example: 'They sent the message in code.'
-                },
-                {
-                  definition: 'A system of rules and standards.',
-                  example: 'The dress code requires formal attire.'
-                },
-                {
-                  definition: 'Instructions written for computers.',
-                  example: 'He writes code for a tech company.'
-                }
-              ]
-            },
-            {
-              partOfSpeech: 'verb',
-              definitions: [
-                {
-                  definition: 'To write instructions for a computer program.',
-                  example: 'She spent all night coding the new feature.'
-                }
-              ]
-            }
-          ]
-        }
-      };
-      
-      // Return mock data if available, otherwise generate a random definition
-      if (mockDefinitions[word.toLowerCase()]) {
-        return mockDefinitions[word.toLowerCase()];
+      if (!response.ok) {
+        throw new Error(`Unable to find definition for "${word}"`);
       }
       
-      return {
-        word: word,
-        phonetic: `/ˈ${word.toLowerCase().charAt(0)}.${word.toLowerCase().slice(1)}/`,
-        meanings: [
-          {
-            partOfSpeech: ['noun', 'verb', 'adjective'][Math.floor(Math.random() * 3)],
-            definitions: [
-              {
-                definition: `This is a mock definition for "${word}" as we don't have a real dictionary API connected.`,
-                example: `This is an example sentence using "${word}".`
-              }
-            ]
-          }
-        ]
+      const data = await response.json();
+      
+      if (!data || !Array.isArray(data) || data.length === 0) {
+        throw new Error(`No definitions found for "${word}"`);
+      }
+      
+      // Map the API response to our interface
+      const entry = data[0];
+      const result: DictionaryResult = {
+        word: entry.word,
+        phonetic: entry.phonetic,
+        meanings: entry.meanings.map((meaning: any) => ({
+          partOfSpeech: meaning.partOfSpeech,
+          definitions: meaning.definitions.map((def: any) => ({
+            definition: def.definition,
+            example: def.example
+          }))
+        }))
       };
+      
+      return result;
     } catch (error) {
-      console.error('Dictionary error:', error);
-      throw new Error('Unable to find definition. Please try again later.');
+      console.error('Dictionary API error:', error);
+      throw new Error(error instanceof Error ? error.message : 'Unable to find definition. Please try again later.');
     }
   },
   
