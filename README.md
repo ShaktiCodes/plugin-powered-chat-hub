@@ -1,73 +1,88 @@
-# Welcome to your Lovable project
+# 🤖 AI Plugin Chatbot Interface
 
-## Project info
+A powerful, AI-enhanced chatbot built using React.js, TypeScript, and Vite. This chatbot supports a plugin-based architecture, enabling dynamic command execution using slash commands (`/weather Paris`, `/define empathy`, `/calc math`). It also supports natural language understanding, letting users interact in a fluid, conversational manner.
 
-**URL**: https://lovable.dev/projects/77bd70e0-5fab-4c02-8634-0bfdc614964e
+## 🧩 Features
 
-## How can I edit this code?
+- 💬 Chat Interface with command and message support
+- 🧠 Natural Language Command Parsing (e.g., "What’s the weather in Tokyo?")
+- 🔌 Plugin Architecture to support modular command functionality
+- 🌦️ `/weather` plugin (uses OpenWeatherMap API)
+- 📖 `/define` plugin (uses Dictionary API)
+- 📝 `/gemini` plugin (uses Google Gemini API)
+- 🔍 `/calc` plugin supports inline math like `Calculate 5 * 10`
+- 🎨 Rich chat formatting: markdown & styled plugin cards
+- ⚙️ Dynamic plugin addition
+- 🌐 Routing with `react-router-dom`
+- ⚡ Built with Vite for fast dev and builds
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 🛠️ Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/77bd70e0-5fab-4c02-8634-0bfdc614964e) and start prompting.
+| Tech | Purpose |
+|------|---------|
+| React.js + TypeScript | UI & typing support |
+| Vite | Fast development/build system |
+| shadcn/ui | Accessible and modern UI components |
+| Tailwind CSS | Utility-first styling |
+| React Router DOM | SPA routing for plugin pages |
+| OpenWeatherMap API | `/weather` command |
+| Dictionary API | `/define` command |
+| Google Gemini API | `/gemini` content generation |
+| Calc | '/math' expression |
+| Framer Motion | Animations & transitions (optional) |
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🔧 Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 1. Clone the Repository
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```bash
+git clone https://github.com/your-username/ai-plugin-chatbot.git
+cd ai-plugin-chatbot
+````
 
-Follow these steps:
+### 2. Install Dependencies
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+```bash
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### 3. Set up Environment Variables
 
-# Step 3: Install the necessary dependencies.
-npm i
+Create a `.env` file in the root directory and add:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```env
+VITE_OPENWEATHER_API_KEY=your_weather_api_key
+VITE_DICTIONARY_API_URL=https://api.dictionaryapi.dev/
+VITE_GEMINI_API_KEY=your_google_gemini_api_key
+```
+
+### 4. Run the Project
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## ✅ Bonus Features
 
-## What technologies are used for this project?
+* 🧩 Dynamic Plugin Loader – Easily plug new tools into chat
+* ✨ Markdown & Rich Responses – Styled chat messages and plugin cards
+* ⏳ Loading & Error States – UX feedback during async plugin calls
+* 🔍 Smart Command Routing – Natural message → command mapping
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📦 Future Enhancements
 
-## How can I deploy this project?
+* ✅ Voice Input (Speech-to-text)
+* ✅ AI Response Memory Context
+* ✅ Admin UI for Plugin Management
+* ✅ User Authentication
 
-Simply open [Lovable](https://lovable.dev/projects/77bd70e0-5fab-4c02-8634-0bfdc614964e) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
