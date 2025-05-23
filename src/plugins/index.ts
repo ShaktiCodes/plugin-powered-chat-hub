@@ -1,3 +1,4 @@
+
 import WeatherPlugin from './WeatherPlugin';
 import CalculatorPlugin from './CalculatorPlugin';
 import DictionaryPlugin from './DictionaryPlugin';
@@ -5,7 +6,7 @@ import GeminiPlugin from './GeminiPlugin';
 import GeminiKeyPlugin from './GeminiKeyPlugin';
 import { Plugin } from '../types';
 
-const plugins: Plugin[] = [
+const defaultPlugins: Plugin[] = [
   WeatherPlugin,
   CalculatorPlugin,
   DictionaryPlugin,
@@ -13,10 +14,11 @@ const plugins: Plugin[] = [
   GeminiKeyPlugin
 ];
 
-export default plugins;
+export default defaultPlugins;
 
-// Helper function to check if a message contains a plugin command
-export function parsePluginCommand(message: string): { pluginName: string; params: string } | null {
+// These functions are kept for backward compatibility
+// but they should be used from usePlugins hook for dynamic plugin support
+export function parsePluginCommand(message: string, plugins: Plugin[] = defaultPlugins): { pluginName: string; params: string } | null {
   for (const plugin of plugins) {
     const match = message.match(plugin.pattern);
     if (match && match[1]) {
@@ -29,7 +31,6 @@ export function parsePluginCommand(message: string): { pluginName: string; param
   return null;
 }
 
-// Get a plugin by name
-export function getPlugin(name: string): Plugin | undefined {
+export function getPlugin(name: string, plugins: Plugin[] = defaultPlugins): Plugin | undefined {
   return plugins.find(plugin => plugin.name === name);
 }

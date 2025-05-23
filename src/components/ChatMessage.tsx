@@ -3,12 +3,15 @@ import React from 'react';
 import { Message } from '../types';
 import { cn } from '@/lib/utils';
 import { getPlugin } from '../plugins';
+import Markdown from './Markdown';
+import { useChatContext } from '@/contexts/ChatContext';
 
 interface ChatMessageProps {
   message: Message;
 }
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
+  const { plugins } = useChatContext();
   const isUser = message.sender === 'user';
   
   // Format timestamp
@@ -22,7 +25,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       return null;
     }
     
-    const plugin = getPlugin(message.pluginName);
+    const plugin = getPlugin(message.pluginName, plugins);
     if (!plugin) return null;
     
     return plugin.renderContent(message.pluginData);
@@ -44,7 +47,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         )}
       >
         {message.content && (
-          <div className="mb-2 whitespace-pre-wrap break-words">{message.content}</div>
+          <div className="mb-2 whitespace-pre-wrap break-words">
+            {isUser ? (
+              <span>{message.content}</span>
+            ) : (
+              <Markdown content={message.content} />
+            )}
+          </div>
         )}
         
         {message.type === 'plugin' && renderPluginContent()}

@@ -1,14 +1,17 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Message } from '../types';
+import { Message, Plugin, DynamicPluginInfo } from '../types';
 import { parsePluginCommand, getPlugin } from '../plugins';
 import { useToast } from '../hooks/use-toast';
+import { usePlugins } from '../hooks/usePlugins';
 
 interface ChatContextType {
   messages: Message[];
   sendMessage: (content: string) => Promise<void>;
   isTyping: boolean;
+  plugins: Plugin[];
+  addPlugin: (pluginInfo: DynamicPluginInfo) => void;
+  getCustomPluginsInfo: () => DynamicPluginInfo[];
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
@@ -25,6 +28,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const { toast } = useToast();
+  const { plugins, addPlugin, getCustomPluginsInfo } = usePlugins();
 
   // Load messages from localStorage on initial render
   useEffect(() => {
@@ -41,7 +45,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const welcomeMessage: Message = {
         id: uuidv4(),
         sender: 'assistant',
-        content: "Hi there! I'm your AI assistant. You can ask me questions or try these commands:\n\n- `/weather [city]` - Get weather information\n- `/calc [expression]` - Calculate a math expression\n- `/define [word]` - Look up a word's definition\n- `/gemini [prompt]` - Get AI-powered responses using Google Gemini\n- `/gemini-key [api-key]` - Set your Gemini API key (optional)",
+        content: "Hi there! I'm your AI assistant. You can ask me questions or try these commands:\n\n- `/weather [city]` - Get weather information\n- `/calc [expression]` - Calculate a math expression\n- `/define [word]` - Look up a word's definition\n- `/gemini [prompt]` - Get AI-powered responses using Google Gemini\n- `/gemini-key [api-key]` - Set your Gemini API key (optional)\n\n**Markdown support** is enabled, so you can use **bold**, *italic*, `code`, links, and more!",
         type: 'text',
         timestamp: new Date().toISOString()
       };
@@ -71,7 +75,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setMessages(prevMessages => [...prevMessages, userMessage]);
     
     // Check if message contains a plugin command
-    const pluginCommand = parsePluginCommand(content);
+    const pluginCommand = parsePluginCommand(content, plugins);
     
     setIsTyping(true);
     
@@ -79,7 +83,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
       let responseMessage: Message;
       
       if (pluginCommand) {
-        const plugin = getPlugin(pluginCommand.pluginName);
+        const plugin = getPlugin(pluginCommand.pluginName, plugins);
         
         if (plugin) {
           // Execute plugin
@@ -90,7 +94,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
             sender: 'assistant',
             content: `Results for ${plugin.command} ${pluginCommand.params}:`,
             type: 'plugin',
-            pluginName: pluginCommand.pluginName as any,
+            pluginName: pluginCommand.pluginName,
             pluginData,
             timestamp: new Date().toISOString()
           };
@@ -108,7 +112,7 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (lowerContent.includes('hello') || lowerContent.includes('hi ') || lowerContent === 'hi') {
           responseContent = "Hello! How can I help you today?";
         } else if (lowerContent.includes('help')) {
-          responseContent = "I can help you with several tasks. Try using one of these commands:\n\n- `/weather [city]` - Get weather information\n- `/calc [expression]` - Calculate a math expression\n- `/define [word]` - Look up a word's definition";
+          responseContent = "I can help you with several tasks. Try using one of these commands:\n\n- `/weather [city]` - Get weather information\n- `/calc [expression]` - Calculate a math expression\n- `/define [word]` - Look up a word's definition\n- `/gemini [prompt]` - Get AI responses\n\nYou can also add **custom plugins** by clicking the + button in the top right.";
         } else if (lowerContent.includes('weather') && !lowerContent.startsWith('/weather')) {
           // Natural language parsing for weather
           const cityMatch = content.match(/weather\s+(?:in|for|at)?\s+([A-Za-z\s]+)/i);
@@ -193,8 +197,12 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
               }
             }
           }
+        } else if (lowerContent.includes('markdown') || lowerContent.includes('formatting')) {
+          responseContent = "# Markdown Support\n\nYou can use **bold text**, *italic text*, and `code formatting`.\n\n## Lists\n\n- Item 1\n- Item 2\n- Item 3\n\n## Code Blocks\n\n```\nconst greeting = 'Hello, world!';\nconsole.log(greeting);\n```\n\n> You can also use blockquotes like this.\n\nEnjoy the markdown formatting!";
+        } else if (lowerContent.includes('plugin') && (lowerContent.includes('add') || lowerContent.includes('create') || lowerContent.includes('custom'))) {
+          responseContent = "To add custom plugins:\n\n1. Click the + button in the top-right corner\n2. Enter a plugin name, command (without the slash), and description\n3. Click 'Add Plugin'\n\nYour custom plugin will be available immediately using `/yourcommand [parameters]`";
         } else {
-          responseContent = "I'm not sure how to respond to that. Try asking for help or using one of our commands like /weather, /calc, or /define.";
+          responseContent = "I'm not sure how to respond to that. Try asking for help or using one of our commands like /weather, /calc, or /define.\n\nYou can also try our **markdown formatting** or add custom plugins!";
         }
         
         responseMessage = {
@@ -236,7 +244,14 @@ export const ChatProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <ChatContext.Provider value={{ messages, sendMessage, isTyping }}>
+    <ChatContext.Provider value={{ 
+      messages, 
+      sendMessage, 
+      isTyping, 
+      plugins, 
+      addPlugin, 
+      getCustomPluginsInfo 
+    }}>
       {children}
     </ChatContext.Provider>
   );

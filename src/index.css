@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -91,6 +90,11 @@
   
   .plugin-card-gemini-key {
     background: linear-gradient(135deg, #0b486b, #3b8d99);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  }
+  
+  .plugin-card-custom {
+    background: linear-gradient(135deg, #614385, #516395);
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
   }
   

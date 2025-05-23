@@ -4,7 +4,7 @@ export interface Message {
   sender: "user" | "assistant";
   content: string;
   type: "text" | "plugin";
-  pluginName?: "weather" | "calc" | "define";
+  pluginName?: string;
   pluginData?: any;
   timestamp: string;
 }
@@ -16,4 +16,12 @@ export interface Plugin {
   pattern: RegExp;
   execute: (params: string) => Promise<any>;
   renderContent: (data: any) => React.ReactNode;
+}
+
+export interface DynamicPluginInfo {
+  name: string;
+  description: string;
+  command: string;
+  pattern: string;
+  enabled: boolean;
 }

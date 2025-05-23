@@ -22,6 +22,7 @@ const Index = () => {
         
         <footer className="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-muted-foreground">
           <p>Available plugins: /weather [city], /calc [expression], /define [word], /gemini [prompt]</p>
+          <p className="mt-1">✨ New: Custom plugins and markdown formatting ✨</p>
           <p className="mt-1">© 2025 AI Chat Interface</p>
         </footer>
       </div>
