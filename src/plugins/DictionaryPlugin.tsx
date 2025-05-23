@@ -25,7 +25,7 @@ const DictionaryPlugin: Plugin = {
       const word = params.trim();
       
       // Call the Dictionary API
-      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+      const response = await fetch(`API_KEY ${encodeURIComponent(word)}`);
       
       if (!response.ok) {
         throw new Error(`Unable to find definition for "${word}"`);
