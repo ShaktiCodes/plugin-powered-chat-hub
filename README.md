@@ -40,8 +40,8 @@ A powerful, AI-enhanced chatbot built using React.js, TypeScript, and Vite. This
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/ai-plugin-chatbot.git
-cd ai-plugin-chatbot
+git clone https://github.com/ShaktiCodes/plugin-powered-chat-hub.git
+cd plugin-powered-chat-hub
 ````
 
 ### 2. Install Dependencies
