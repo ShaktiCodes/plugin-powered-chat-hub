@@ -2,6 +2,12 @@
 
 A powerful, AI-enhanced chatbot built using React.js, TypeScript, and Vite. This chatbot supports a plugin-based architecture, enabling dynamic command execution using slash commands (`/weather Paris`, `/define empathy`, `/calc math`). It also supports natural language understanding, letting users interact in a fluid, conversational manner.
 
+## Screeshot for this projects -
+
+https://github.com/ShaktiCodes/plugin-powered-chat-hub/blob/0cd34a56bd5df2dfeb9d7f92a604c4f013e7fe06/chat.png
+
+
+
 ## 🧩 Features
 
 - 💬 Chat Interface with command and message support
