@@ -4,7 +4,8 @@ A powerful, AI-enhanced chatbot built using React.js, TypeScript, and Vite. This
 
 ## Screeshot for this projects -
 
-https://github.com/ShaktiCodes/plugin-powered-chat-hub/blob/0cd34a56bd5df2dfeb9d7f92a604c4f013e7fe06/chat.png
+![image](https://github.com/user-attachments/assets/af949347-6511-4328-a129-80d24172edbd)
+
 
 ![image](https://github.com/user-attachments/assets/aaa27746-864d-4dee-88b9-6f8d14564368)
 
