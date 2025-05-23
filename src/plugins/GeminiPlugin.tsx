@@ -22,7 +22,7 @@ const GeminiPlugin: Plugin = {
       }
       
       // Check if user has provided API key in localStorage
-      const apiKey = localStorage.getItem('geminiApiKey') || 'AIzaSyBmtI6kCzCu1NDPDt5IGhXfVyBWT7yCO0U';
+      const apiKey = localStorage.getItem('geminiApiKey') || 'YOUR_API_KEY';
       
       if (!apiKey) {
         throw new Error("Gemini API key not found. Please set your API key using /gemini-key [your-api-key]");
