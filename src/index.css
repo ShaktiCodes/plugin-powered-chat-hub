@@ -97,22 +97,30 @@
   .chat-container {
     background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 70%),
                 radial-gradient(circle at bottom left, rgba(139, 92, 246, 0.1), transparent 70%);
+    height: calc(100vh - 180px);
+    max-height: 800px;
+  }
+  
+  @media (max-width: 640px) {
+    .chat-container {
+      height: calc(100vh - 150px); 
+    }
   }
   
   .chat-message-user {
     background: linear-gradient(to right, #6d28d9, #5b21b6);
-    border-top-left-radius: 1.5rem;
-    border-top-right-radius: 1.5rem;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
     border-bottom-right-radius: 0;
-    border-bottom-left-radius: 1.5rem;
+    border-bottom-left-radius: 1.25rem;
     box-shadow: 0 4px 15px rgba(109, 40, 217, 0.2);
   }
   
   .chat-message-assistant {
     background: linear-gradient(to right, #2563eb, #1d4ed8);
-    border-top-left-radius: 1.5rem;
-    border-top-right-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
+    border-top-left-radius: 1.25rem;
+    border-top-right-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
     border-bottom-left-radius: 0;
     box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
   }

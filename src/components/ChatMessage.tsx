@@ -31,27 +31,27 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   return (
     <div 
       className={cn(
-        "flex w-full mb-4 animate-fade-in",
+        "flex w-full mb-2 sm:mb-4 animate-fade-in",
         isUser ? "justify-end" : "justify-start"
       )}
     >
       <div 
         className={cn(
-          "max-w-[80%] p-4",
+          "max-w-[90%] sm:max-w-[80%] p-2 sm:p-4 text-sm sm:text-base",
           isUser 
             ? "chat-message-user"
             : "chat-message-assistant"
         )}
       >
         {message.content && (
-          <div className="mb-2 whitespace-pre-wrap">{message.content}</div>
+          <div className="mb-2 whitespace-pre-wrap break-words">{message.content}</div>
         )}
         
         {message.type === 'plugin' && renderPluginContent()}
         
         <div 
           className={cn(
-            "text-xs mt-2 flex justify-end",
+            "text-xs mt-1 sm:mt-2 flex justify-end",
             isUser ? "text-purple-200/80" : "text-blue-200/80"
           )}
         >
