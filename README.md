@@ -58,6 +58,7 @@ Create a `.env` file in the root directory and add:
 VITE_OPENWEATHER_API_KEY=your_weather_api_key
 VITE_DICTIONARY_API_URL=https://api.dictionaryapi.dev/
 VITE_GEMINI_API_KEY=your_google_gemini_api_key
+VITE_MATH_API_KEY=your_expression_evolution_api_key
 ```
 
 ### 4. Run the Project
