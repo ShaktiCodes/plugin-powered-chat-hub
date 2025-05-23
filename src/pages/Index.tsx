@@ -9,7 +9,7 @@ const Index = () => {
     <div className="min-h-screen flex flex-col bg-background text-foreground p-4">
       <div className="container mx-auto flex-grow flex flex-col max-w-3xl">
         <header className="mb-6 text-center">
-          <h1 className="text-3xl font-bold mb-2">AI Chat Interface</h1>
+          <h1 className="text-3xl font-bold mb-2 text-primary">AI Chat Interface</h1>
           <p className="text-muted-foreground">
             Chat with AI using plugin commands for enhanced functionality
           </p>
@@ -22,7 +22,7 @@ const Index = () => {
         </div>
         
         <footer className="mt-8 text-center text-sm text-muted-foreground">
-          <p>Available plugins: /weather [city], /calc [expression], /define [word]</p>
+          <p>Available plugins: /weather [city], /calc [expression], /define [word], /gemini [prompt]</p>
           <p className="mt-1">© 2025 AI Chat Interface</p>
         </footer>
       </div>

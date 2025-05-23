@@ -37,10 +37,10 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
     >
       <div 
         className={cn(
-          "max-w-[80%] rounded-lg p-3",
+          "max-w-[80%] p-4",
           isUser 
-            ? "bg-chat-user text-white rounded-br-none"
-            : "bg-secondary text-secondary-foreground rounded-bl-none"
+            ? "chat-message-user"
+            : "chat-message-assistant"
         )}
       >
         {message.content && (
@@ -51,8 +51,8 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         
         <div 
           className={cn(
-            "text-xs mt-1 flex justify-end",
-            isUser ? "text-purple-200" : "text-gray-400"
+            "text-xs mt-2 flex justify-end",
+            isUser ? "text-purple-200/80" : "text-blue-200/80"
           )}
         >
           {formattedTime}
