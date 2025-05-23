@@ -62,7 +62,7 @@ npm install
 
 ### 3. Set up Environment Variables
 
-Create a `.env` file in the root directory and add:
+Create a `.env` file in the root directory and add in plugin file:
 
 ```env
 VITE_OPENWEATHER_API_KEY=your_weather_api_key
